@@ -226,6 +226,9 @@ public:
 	int GetCellLevel() const
 		{ JMP_THIS(0x5F5F00); }
 
+	int Get_YSort() const
+		{ JMP_THIS(0x5F6BD0); }
+
 	CellStruct GetMapCoords() const {
 		CellStruct ret;
 		this->GetMapCoords(&ret);
