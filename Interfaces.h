@@ -35,20 +35,20 @@ _COM_SMARTPTR_TYPEDEF(IApplication, __uuidof(IApplication));
 
 __interface INoticeSource
 {
-	virtual void __stdcall IssueNotice() = 0;
+	virtual void __stdcall Issue_Notice() = 0;
 };
 
 __interface INoticeSink
 {
-	virtual bool __stdcall TakeNotice(int command) = 0;
+	virtual bool __stdcall Take_Notice(int command) = 0;
 };
 
 __interface __declspec(uuid("170DAC82-12E4-11D2-8175-006008055BB5"))
 IRTTITypeInfo : IUnknown
 {
-	virtual AbstractType __stdcall WhatAmI() const = 0;
-	virtual int __stdcall FetchID() const = 0;
-	virtual void __stdcall CreateID() = 0;
+	virtual AbstractType __stdcall What_Am_I() const = 0;
+	virtual int __stdcall Fetch_ID() const = 0;
+	virtual void __stdcall Create_ID() = 0;
 };
 
 _COM_SMARTPTR_TYPEDEF(IRTTITypeInfo, __uuidof(IRTTITypeInfo));

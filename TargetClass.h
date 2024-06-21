@@ -48,7 +48,7 @@ public:
 		// 	else
 		// 	{
 		// 		m_RTTI = static_cast<unsigned char>(AbstractType::Abstract);
-		// 		m_ID = pItem->FetchID();
+		// 		m_ID = pItem->Fetch_ID();
 		// 	}
 		// }
 		// else

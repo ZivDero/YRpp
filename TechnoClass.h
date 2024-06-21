@@ -373,12 +373,12 @@ public:
 	void UpdateThreatInCell(CellClass *Cell)
 		{ JMP_THIS(0x70F6E0); }
 
-// CanTargetWhatAmI is a bitfield, if(!(CanTargetWhatAmI & (1 << tgt->WhatAmI())) { fail; }
+// CanTargetKindOf is a bitfield, if(!(CanTargetKindOf & (1 << tgt->KindOf())) { fail; }
 
 // slave of the next one
 	bool CanAutoTargetObject(
 		TargetFlags targetFlags,
-		int canTargetWhatAmI,
+		int canTargetKindOf,
 		int wantedDistance,
 		TechnoClass* pTarget,
 		int* pThreatPosed,
@@ -389,7 +389,7 @@ public:
 // called by AITeam Attack Target Type and autoscan
 	bool TryAutoTargetObject(
 		TargetFlags targetFlags,
-		int canTargetWhatAmI,
+		int canTargetKindOf,
 		CellStruct* pCoords,
 		DWORD dwUnk1,
 		DWORD* dwUnk2,
@@ -571,7 +571,7 @@ public:
 	CloakState       CloakState;
 	DECLARE_PROPERTY(StageClass, CloakProgress); // phase from [opaque] -> [fading] -> [transparent] , [General]CloakingStages= long
 	DECLARE_PROPERTY(CDTimerClass, CloakDelayTimer); // delay before cloaking again
-	float            WarpFactor; // don't ask! set to 0 in CTOR, never modified, only used as ((this->FetchID) + this->WarpFactor) % 400 for something in cloak ripple
+	float            WarpFactor; // don't ask! set to 0 in CTOR, never modified, only used as ((this->Fetch_ID) + this->WarpFactor) % 400 for something in cloak ripple
 	bool             unknown_bool_250;
 	CoordStruct      LastSightCoords;
 	int              LastSightRange;

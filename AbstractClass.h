@@ -45,19 +45,19 @@ public:
 	/*
 	**	IRTTITypeInfo.
 	*/
-	virtual AbstractType __stdcall WhatAmI() const JMP_THIS(0x410210);
-	virtual int __stdcall FetchID() const JMP_THIS(0x410220);
-	virtual void __stdcall CreateID() JMP_THIS(0x410230);
+	virtual AbstractType __stdcall What_Am_I() const JMP_THIS(0x410210);
+	virtual int __stdcall Fetch_ID() const JMP_THIS(0x410220);
+	virtual void __stdcall Create_ID() JMP_THIS(0x410230);
 
 	/*
 	**	INoticeSink
 	*/
-	virtual bool __stdcall TakeNotice(int command) JMP_THIS(0x410580);
+	virtual bool __stdcall Take_Notice(int command) JMP_THIS(0x410580);
 
 	/*
 	**	INoticeSource
 	*/
-	virtual void __stdcall IssueNotice() JMP_THIS(0x410590);
+	virtual void __stdcall Issue_Notice() JMP_THIS(0x410590);
 
 	/*
 	**	AbstractClass
@@ -65,7 +65,7 @@ public:
 	virtual ~AbstractClass() JMP_THIS(0x4101F0);
 
 	virtual void Init() JMP_THIS(0x410470);
-	virtual void Detach(AbstractClass* pAbstract, bool all) JMP_THIS(0x410480);
+	virtual void Detach(AbstractClass* pTarget, bool all = true) JMP_THIS(0x410480);
 	virtual AbstractType KindOf() const = 0;
 	virtual int SizeOf() const = 0;
 	virtual void ComputeCRC(CRCEngine& crc) const JMP_THIS(0x410410);
@@ -93,12 +93,14 @@ public:
 		return this->ID < that.ID;
 	}
 
-	AbstractClass& operator=(const AbstractClass& that) JMP_THIS(0x588C10);
-
 protected:
 	// Constructor
 	AbstractClass() JMP_THIS(0x410170);
 	AbstractClass(const noinit_t& noinit) JMP_THIS(0x4101C0);
+
+private:
+	AbstractClass(const AbstractClass &);
+	AbstractClass& operator=(const AbstractClass& that) JMP_THIS(0x588C10);
 
 public:
 	/*
