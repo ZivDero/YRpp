@@ -1717,7 +1717,6 @@ typedef enum CampaignType
 
 	CAMPAIGN_FIRST = 0
 } CampaignType;
-
 DEFINE_ENUMERATION_OPERATORS(CampaignType);
 
 typedef enum ThemeType
@@ -1729,7 +1728,6 @@ typedef enum ThemeType
 	THEME_COUNT,
 	THEME_FIRST = 0
 } ThemeType;
-
 DEFINE_ENUMERATION_OPERATORS(ThemeType);
 
 typedef enum BulletType
@@ -1738,7 +1736,6 @@ typedef enum BulletType
 
 	BULLET_FIRST = 0
 } BulletType;
-
 DEFINE_ENUMERATION_OPERATORS(BulletType);
 
 typedef enum WeaponType
@@ -1747,7 +1744,6 @@ typedef enum WeaponType
 
 	WEAPON_FIRST = 0
 } WeaponType;
-
 DEFINE_ENUMERATION_OPERATORS(WeaponType);
 
 typedef enum VoxelAnimType
@@ -1756,7 +1752,6 @@ typedef enum VoxelAnimType
 
 	VOXELANIM_FIRST = 0
 } VoxelAnimType;
-
 DEFINE_ENUMERATION_OPERATORS(VoxelAnimType);
 
 typedef enum AircraftType
@@ -1765,7 +1760,6 @@ typedef enum AircraftType
 
 	AIRCRAFT_FIRST = 0
 } AircraftType;
-
 DEFINE_ENUMERATION_OPERATORS(AircraftType);
 
 typedef enum UnitType
@@ -1774,7 +1768,6 @@ typedef enum UnitType
 
 	UNIT_FIRST = 0
 } UnitType;
-
 DEFINE_ENUMERATION_OPERATORS(UnitType);
 
 typedef enum InfantryType
@@ -1783,7 +1776,6 @@ typedef enum InfantryType
 
 	INFANTRY_FIRST = 0
 } InfantryType;
-
 DEFINE_ENUMERATION_OPERATORS(InfantryType);
 
 typedef enum HousesType
@@ -1792,5 +1784,31 @@ typedef enum HousesType
 
 	HOUSE_FIRST = 0
 } HousesType;
-
 DEFINE_ENUMERATION_OPERATORS(HousesType);
+
+typedef enum WeaponSlotType
+{
+	WEAPON_SLOT_PRIMARY,
+	WEAPON_SLOT_SECONDARY,
+	WEAPON_SLOT_ELITE,
+
+	WEAPON_SLOT_COUNT,
+
+	WEAPON_SLOT_NONE = -1,
+	WEAPON_SLOT_FIRST = 0,
+} WeaponSlotType;
+DEFINE_ENUMERATION_OPERATORS(WeaponSlotType);
+
+typedef enum TiberiumType
+{
+	TIBERIUM_RIPARIUS,
+	TIBERIUM_CRUENTUS,
+	TIBERIUM_VINIFERA,
+	TIBERIUM_ABOREUS,
+
+	TIBERIUM_COUNT,
+
+	TIBERIUM_NONE = -1,
+	TIBERIUM_FIRST = 0
+} TiberiumType;
+DEFINE_ENUMERATION_OPERATORS(TiberiumType);

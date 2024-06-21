@@ -76,7 +76,7 @@ public:
 	virtual CoordStruct GetCenterCoords() const JMP_THIS(0x4104C0);
 
 	// Where this is moving, or a building's dock for a techno. IOW, a rendez-vous point
-	virtual CoordStruct GetTargetCoords(TechnoClass* pDocker = nullptr) const JMP_THIS(0x4104F0);
+	virtual CoordStruct GetDestinationCoords(TechnoClass* pDocker = nullptr) const JMP_THIS(0x4104F0);
 
 	virtual bool IsOnGround() const JMP_THIS(0x410520);
 	virtual bool IsInAir() const JMP_THIS(0x410530);
@@ -87,22 +87,18 @@ public:
 	TechnoClass* AsTechno() JMP_THIS(0x40DD20);
 	TechnoClass* AsTechno2() JMP_THIS(0x40DD70);
 
-	// Tracker.h
-	static void DetachThisFromAll(AbstractClass* pAbstract, bool all = true) JMP_THIS(0x7258D0);
-	static void RemoveAllInactive() JMP_STD(0x725C70);
-
 	// Operator less for Alex's comparison
-	bool operator<(const AbstractClass& rhs) const
+	bool operator<(const AbstractClass& that) const
 	{
-		return this->ID < rhs.ID;
+		return this->ID < that.ID;
 	}
 
-	AbstractClass& operator=(const AbstractClass& rhs) JMP_THIS(0x588C10);
+	AbstractClass& operator=(const AbstractClass& that) JMP_THIS(0x588C10);
 
 protected:
 	// Constructor
 	AbstractClass() JMP_THIS(0x410170);
-	AbstractClass(noinit_t) JMP_THIS(0x4101C0);
+	AbstractClass(const noinit_t& noinit) JMP_THIS(0x4101C0);
 
 public:
 	/*
