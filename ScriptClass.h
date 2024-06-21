@@ -25,8 +25,8 @@ public:
 	virtual ~ScriptClass() RX;
 
 	//AbstractClass
-	virtual AbstractType WhatAmI() const RT(AbstractType);
-	virtual int Size() const R0;
+	virtual AbstractType KindOf() const RT(AbstractType);
+	virtual int SizeOf() const R0;
 
 	ScriptActionNode* GetCurrentAction(ScriptActionNode *buffer) const
 		{ JMP_THIS(0x691500); }

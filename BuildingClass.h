@@ -43,8 +43,8 @@ public:
 	virtual ~BuildingClass() RX;
 
 	//AbstractClass
-	virtual AbstractType WhatAmI() const RT(AbstractType);
-	virtual int	Size() const R0;
+	virtual AbstractType KindOf() const RT(AbstractType);
+	virtual int	SizeOf() const R0;
 
 	//ObjectClass
 	//MissionClass
@@ -279,7 +279,7 @@ public:
 
 	AnimClass * DamageFireAnims [0x8];
 
-	bool RequiresDamageFires; // if set, ::Update spawns damage fire anims and zeroes it
+	bool RequiresDamageFires; // if set, ::AI spawns damage fire anims and zeroes it
 	//5E8 - 5F8 ????????
 	BuildingTypeClass * Upgrades [0x3];
 
@@ -311,7 +311,7 @@ public:
 	AudioController Audio7;
 	AudioController Audio8;
 
-	bool WasOnline; // the the last state when Update()ing. if this changed since the last Update(), UpdatePowered is called.
+	bool WasOnline; // the the last state when AI()ing. if this changed since the last AI(), UpdatePowered is called.
 	bool ShowRealName; // is also NOMINAL under [Structures]
 	bool BeingProduced; // is also AI_REBUILDABLE under [Structures]
 	bool ShouldRebuild; // is also AI_REPAIRABLE under [Structures]

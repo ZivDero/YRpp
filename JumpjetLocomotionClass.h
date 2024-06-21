@@ -55,7 +55,7 @@ public:
 	virtual ~JumpjetLocomotionClass() RX;
 
 	//LocomotionClass
-	virtual	int Size() R0;
+	virtual	int SizeOf() R0;
 
 	//JumpjetLocomotionClass
 

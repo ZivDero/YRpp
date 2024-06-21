@@ -28,11 +28,11 @@ public:
 	virtual ~TActionClass() RX;
 
 	//AbstractClass
-	virtual void PointerExpired(AbstractClass* pAbstract, bool removed) override RX;
-	virtual AbstractType WhatAmI() const override RT(AbstractType);
-	virtual int Size() const override R0;
+	virtual void Detach(AbstractClass* pAbstract, bool removed) override RX;
+	virtual AbstractType KindOf() const override RT(AbstractType);
+	virtual int SizeOf() const override R0;
 	virtual void ComputeCRC(CRCEngine& crc) const override RX;
-	virtual int GetArrayIndex() const override R0;
+	virtual int GetHeapID() const override R0;
 
 	// you are responsible for doing INI::ReadString and strtok'ing it before calling
 	// this func only calls strtok again, doesn't know anything about buffers

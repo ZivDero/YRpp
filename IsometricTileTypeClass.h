@@ -17,12 +17,12 @@ public:
 	virtual HRESULT __stdcall Save(IStream* pStm, BOOL fClearDirty) R0;
 
 	//AbstractClass
-	virtual void PointerExpired(AbstractClass* pAbstract, bool removed) RX;
-	virtual AbstractType WhatAmI() const RT(AbstractType);
-	virtual int Size() const R0;
+	virtual void Detach(AbstractClass* pAbstract, bool removed) RX;
+	virtual AbstractType KindOf() const RT(AbstractType);
+	virtual int SizeOf() const R0;
 	virtual void ComputeCRC(CRCEngine& crc) const RX;
 
-	virtual int GetArrayIndex() const R0;
+	virtual int GetHeapID() const R0;
 
 	//ObjectTypeClass
 	virtual CoordStruct* vt_entry_6C(CoordStruct* pDest, CoordStruct* pSrc) const R0;

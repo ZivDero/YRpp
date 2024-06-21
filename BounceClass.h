@@ -48,7 +48,7 @@ public:
 		return buffer;
 	}
 
-	Status Update()
+	Status AI()
 		{ JMP_THIS(0x439B00); }
 
 	double Elasticity{ 0.0 }; // speed multiplier when bouncing off the ground

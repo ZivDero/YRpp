@@ -33,9 +33,9 @@ public:
 	virtual ~AnimClass() RX;
 
 	//AbstractClass
-	virtual void PointerExpired(AbstractClass* pAbstract, bool detachFromAll) override JMP_THIS(0x425150);
-	virtual AbstractType WhatAmI() const RT(AbstractType);
-	virtual int	Size() const R0;
+	virtual void Detach(AbstractClass* pAbstract, bool detachFromAll) override JMP_THIS(0x425150);
+	virtual AbstractType KindOf() const RT(AbstractType);
+	virtual int	SizeOf() const R0;
 
 	//ObjectClass
 	//AnimClass
@@ -109,7 +109,7 @@ public:
 	bool IsFogged;
 	bool FlamingGuyExpire; // finish animation and remove
 	bool UnableToContinue; // set when something prevents the anim from going on: cell occupied, veins destoyed or unit gone, ...
-	bool SkipProcessOnce; // set in constructor, cleared during Update. skips damage, veins, tiberium chain reaction and animation progress
+	bool SkipProcessOnce; // set in constructor, cleared during AI. skips damage, veins, tiberium chain reaction and animation progress
 	bool Invisible; // don't draw, but Update state anyway
 	bool PowerOff; // powered animation has no power
 	PROTECTED_PROPERTY(BYTE, unused_19F);

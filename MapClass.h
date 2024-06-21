@@ -162,7 +162,7 @@ public:
 	void RemoveObject(ObjectClass* pObject)
 		{ JMP_THIS(0x55BAE0); }
 
-	void Update()
+	void AI()
 		{ JMP_THIS(0x55AFB0); }
 };
 
@@ -449,7 +449,7 @@ public:
  * AircraftClass::SpyPlaneOverfly
  * AircraftClass::Carryall_Unload
  * BuildingClass::Place - RevealToAll
- * Foot/Infantry Class::Update/UpdatePosition
+ * Foot/Infantry Class::AI/UpdatePosition
  * MapClass::RevealArea0 calls this to do the work
  * ParasiteClass::Infect/PointerGotInvalid
  * TechnoClass::Unlimbo

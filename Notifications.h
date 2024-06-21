@@ -6,7 +6,7 @@ class AbstractClass;
 
 // encapsulates a bunch of vectors that are used for announcing invalid pointers.
 // if an AbstractClass is contained in an list it will be notified through
-// PointerExpired whenever an object of that type expires.
+// Detach whenever an object of that type expires.
 class PointerExpiredNotification {
 public:
 	static constexpr reference<PointerExpiredNotification, 0xB0F720u> const NotifyInvalidObject{}; // Object class hierarchy

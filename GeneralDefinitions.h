@@ -1703,3 +1703,94 @@ enum class ZoneType : int
 #define	WW_CB_ADDITEM				0x4C2 //wParam = int index; lParam = 0
 
 #define	WW_LB_ADDITEM				0x4CD
+
+/* 
+* Various "types" of objects that used to be significant in RA/TD
+* Now these are actually just the heap index of the type
+* and serve as a visual guide to what the number represents.
+* They are enums and not enum classes as they do not take a closed set of values.
+*/
+
+typedef enum CampaignType
+{
+	CAMPAIGN_NONE = -1,
+
+	CAMPAIGN_FIRST = 0
+} CampaignType;
+
+DEFINE_ENUMERATION_OPERATORS(CampaignType);
+
+typedef enum ThemeType
+{
+	THEME_QUIET = -3,
+	THEME_PICK_ANOTHER = -2,
+	THEME_NONE = -1,
+
+	THEME_COUNT,
+	THEME_FIRST = 0
+} ThemeType;
+
+DEFINE_ENUMERATION_OPERATORS(ThemeType);
+
+typedef enum BulletType
+{
+	BULLET_NONE = -1,
+
+	BULLET_FIRST = 0
+} BulletType;
+
+DEFINE_ENUMERATION_OPERATORS(BulletType);
+
+typedef enum WeaponType
+{
+	WEAPON_NONE = -1,
+
+	WEAPON_FIRST = 0
+} WeaponType;
+
+DEFINE_ENUMERATION_OPERATORS(WeaponType);
+
+typedef enum VoxelAnimType
+{
+	VOXELANIM_NONE = -1,
+
+	VOXELANIM_FIRST = 0
+} VoxelAnimType;
+
+DEFINE_ENUMERATION_OPERATORS(VoxelAnimType);
+
+typedef enum AircraftType
+{
+	AIRCRAFT_NONE = -1,
+
+	AIRCRAFT_FIRST = 0
+} AircraftType;
+
+DEFINE_ENUMERATION_OPERATORS(AircraftType);
+
+typedef enum UnitType
+{
+	UNIT_NONE = -1,
+
+	UNIT_FIRST = 0
+} UnitType;
+
+DEFINE_ENUMERATION_OPERATORS(UnitType);
+
+typedef enum InfantryType
+{
+	INFANTRY_NONE = -1,
+
+	INFANTRY_FIRST = 0
+} InfantryType;
+
+DEFINE_ENUMERATION_OPERATORS(InfantryType);
+
+typedef enum HousesType
+{
+	HOUSE_NONE = -1,
+
+	HOUSE_FIRST = 0
+} HousesType;
+
+DEFINE_ENUMERATION_OPERATORS(HousesType);

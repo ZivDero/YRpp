@@ -38,8 +38,8 @@ public:
 	virtual ~AITriggerTypeClass() RX;
 
 	//AbstractClass
-	virtual AbstractType WhatAmI() const RT(AbstractType);
-	virtual int Size() const R0;
+	virtual AbstractType KindOf() const RT(AbstractType);
+	virtual int SizeOf() const R0;
 
 	static bool LoadFromINIList(CCINIClass *pINI)
 		{ JMP_STD(0x41F2E0); }

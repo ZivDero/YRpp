@@ -38,7 +38,7 @@ public:
 		JMP_THIS(0x6E6AB0);
 		// if (pItem)
 		// {
-		// 	if (pItem->WhatAmI() == AbstractType::Cell)
+		// 	if (pItem->KindOf() == AbstractType::Cell)
 		// 	{
 		// 		const auto pCell = static_cast<CellClass*>(pItem);
 		// 
@@ -48,7 +48,7 @@ public:
 		// 	else
 		// 	{
 		// 		m_RTTI = static_cast<unsigned char>(AbstractType::Abstract);
-		// 		m_ID = pItem->Fetch_ID();
+		// 		m_ID = pItem->FetchID();
 		// 	}
 		// }
 		// else

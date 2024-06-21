@@ -2,14 +2,14 @@
 
 #include <GeneralDefinitions.h>
 
-struct TransitionTimer
+struct DoorClass
 {
 public:
 	//Constructor, Destructor
-	TransitionTimer()
+	DoorClass()
 		{ JMP_THIS(0x4A50F0); }
 
-	~TransitionTimer() = default;
+	~DoorClass() = default;
 
 	bool AreStates11() // 0x4A5110
 		{ return this->State1 && this->State2; }
@@ -32,7 +32,7 @@ public:
 	void StartTimer10(double time)
 		{ JMP_THIS(0x4A5240); }
 
-	void Update()
+	void AI()
 		{ JMP_THIS(0x4A5290); }
 
 	double PercentageDone()
@@ -47,7 +47,7 @@ public:
 
 public:
 
-	double      Rate1;
+	double      Rate;
 	CDTimerClass ActionTimer;
 	DWORD       Rate2;
 	bool        State1;

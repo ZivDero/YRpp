@@ -34,8 +34,8 @@ public:
 	virtual ~ScriptTypeClass() RX;
 
 	//AbstractClass
-	virtual AbstractType WhatAmI() const RT(AbstractType);
-	virtual int Size() const R0;
+	virtual AbstractType KindOf() const RT(AbstractType);
+	virtual int SizeOf() const R0;
 
 	//AbstractTypeClass
 	static bool LoadFromINIList(CCINIClass *pINI, bool IsGlobal)

@@ -7,177 +7,121 @@
 #include <IndexClass.h>
 #include <GameStrings.h>
 
-//forward declarations
 class TechnoClass;
 class HouseClass;
 class CRCEngine;
 
-struct StorageClass
-{
-	float GetAmount(int index) const
-		{ JMP_THIS(0x6C9680); }
-
-	float GetTotalAmount() const
-		{ JMP_THIS(0x6C9650); }
-
-	float AddAmount(float amount, int index)
-		{ JMP_THIS(0x6C9690); }
-
-	float RemoveAmount(float amount, int index)
-		{ JMP_THIS(0x6C96B0); }
-
-	int GetTotalValue() const
-		{ JMP_THIS(0x6C9600); }
-
-	float Tiberium1;
-	float Tiberium2;
-	float Tiberium3;
-	float Tiberium4;
-};
-//---
-
-//The AbstractClass is the base class of all game objects.
+/*
+**	This class is the base class for all game objects that have an existence on the
+**	battlefield.
+*/
 class NOVTABLE AbstractClass : public IPersistStream, public IRTTITypeInfo, public INoticeSink, public INoticeSource
 {
 public:
-	static const AbstractType AbsID = AbstractType::Abstract;
-
 	static constexpr constant_ptr<DynamicVectorClass<AbstractClass*>, 0xB0F720u> const Array{};
 	static constexpr reference<IndexClass<int, int>, 0xB0E840u> const TargetIndex{};
 
-	//static
-	const char* GetClassName() const
+	/*
+	**	IUnknown
+	*/
+	virtual HRESULT __stdcall QueryInterface(REFIID iid, void** ppvObject) JMP_THIS(0x410260);
+	virtual ULONG __stdcall AddRef() JMP_THIS(0x410300);
+	virtual ULONG __stdcall Release() JMP_THIS(0x410310);
+
+	/*
+	**	IPersistStream
+	*/
+	virtual HRESULT __stdcall IsDirty() JMP_THIS(0x410480);
+	
+	/*
+	**	Load and save functions
+	**	NOTE: THESE ARE NOT VIRTUAL
+	*/
+	HRESULT STDMETHODCALLTYPE Load(IStream *pStm) JMP_THIS(0x410380);
+	HRESULT STDMETHODCALLTYPE Save(IStream *pStm, BOOL fClearDirty) JMP_THIS(0x410320);
+
+	virtual HRESULT __stdcall GetSizeMax(ULARGE_INTEGER* pcbSize) JMP_THIS(0x4103E0);
+
+	/*
+	**	IRTTITypeInfo.
+	*/
+	virtual AbstractType __stdcall WhatAmI() const JMP_THIS(0x410210);
+	virtual int __stdcall FetchID() const JMP_THIS(0x410220);
+	virtual void __stdcall CreateID() JMP_THIS(0x410230);
+
+	/*
+	**	INoticeSink
+	*/
+	virtual bool __stdcall TakeNotice(int command) JMP_THIS(0x410580);
+
+	/*
+	**	INoticeSource
+	*/
+	virtual void __stdcall IssueNotice() JMP_THIS(0x410590);
+
+	/*
+	**	AbstractClass
+	*/
+	virtual ~AbstractClass() JMP_THIS(0x4101F0);
+
+	virtual void Init() JMP_THIS(0x410470);
+	virtual void Detach(AbstractClass* pAbstract, bool all) JMP_THIS(0x410480);
+	virtual AbstractType KindOf() const = 0;
+	virtual int SizeOf() const = 0;
+	virtual void ComputeCRC(CRCEngine& crc) const JMP_THIS(0x410410);
+	virtual HousesType GetOwner() const JMP_THIS(0x410490);
+	virtual HouseClass* GetOwningHouse() const JMP_THIS(0x4104A0);
+	virtual int GetHeapID() const JMP_THIS(0x4104B0);
+	virtual bool IsInactive() const JMP_THIS(0x410440);
+	virtual CoordStruct GetCenterCoords() const JMP_THIS(0x4104C0);
+
+	// Where this is moving, or a building's dock for a techno. IOW, a rendez-vous point
+	virtual CoordStruct GetTargetCoords(TechnoClass* pDocker = nullptr) const JMP_THIS(0x4104F0);
+
+	virtual bool IsOnGround() const JMP_THIS(0x410520);
+	virtual bool IsInAir() const JMP_THIS(0x410530);
+	virtual CoordStruct GetCoords() const JMP_THIS(0x410540);
+	virtual void AI() JMP_THIS(0x410570);
+
+	// Exactly the same, return TechnoClass* if it's a unit/aircraft/building/infantry, nullptr otherwise
+	TechnoClass* AsTechno() JMP_THIS(0x40DD20);
+	TechnoClass* AsTechno2() JMP_THIS(0x40DD70);
+
+	// Tracker.h
+	static void DetachThisFromAll(AbstractClass* pAbstract, bool all = true) JMP_THIS(0x7258D0);
+	static void RemoveAllInactive() JMP_STD(0x725C70);
+
+	// Operator less for Alex's comparison
+	bool operator<(const AbstractClass& rhs) const
 	{
-		return AbstractClass::GetClassName(this->WhatAmI());
+		return this->ID < rhs.ID;
 	}
 
-	static const char* GetClassName(AbstractType abs)
-	{
-		const size_t TypeCount = 74;
-		const auto Types = reinterpret_cast<NamedValue(*)[TypeCount]>(0x816EE0);
-
-		for(const auto& Type : *Types) {
-			if(static_cast<AbstractType>(Type.Value) == abs) {
-				return Type.Name;
-			}
-		}
-
-		return nullptr;
-	}
-
-	//IUnknown
-	virtual HRESULT __stdcall QueryInterface(REFIID iid, void** ppvObject) R0;
-	virtual ULONG __stdcall AddRef() R0;
-	virtual ULONG __stdcall Release() R0;
-
-	//IPersist
-	virtual HRESULT __stdcall GetClassID(CLSID* pClassID) = 0;
-
-	//IPersistStream
-	virtual HRESULT __stdcall IsDirty() R0;
-	virtual HRESULT __stdcall Load(IStream* pStm) = 0;
-	virtual HRESULT __stdcall Save(IStream* pStm, BOOL fClearDirty) = 0;
-
-	virtual HRESULT __stdcall GetSizeMax(ULARGE_INTEGER* pcbSize) R0;
-
-	//IRTTITypeInfo
-	virtual AbstractType __stdcall What_Am_I() const RT(AbstractType);
-	virtual int __stdcall Fetch_ID() const R0;
-	virtual void __stdcall Create_ID() RX;
-
-	//INoticeSink
-	virtual bool __stdcall INoticeSink_Unknown(DWORD dwUnknown) R0;
-
-	//INoticeSource
-	virtual void __stdcall INoticeSource_Unknown() RX;
-
-	//Destructor
-	virtual ~AbstractClass() RX;
-
-	//AbstractClass
-	virtual void Init() RX;
-	virtual void PointerExpired(AbstractClass* pAbstract, bool removed) RX;
-	virtual AbstractType WhatAmI() const = 0;
-	virtual int Size() const = 0;
-	virtual void ComputeCRC(CRCEngine& crc) const RX;
-	virtual int GetOwningHouseIndex() const R0;
-	virtual HouseClass* GetOwningHouse() const R0;
-	virtual int GetArrayIndex() const R0;
-	virtual bool IsDead() const R0;
-	virtual CoordStruct* GetCoords(CoordStruct* pCrd) const R0;
-	virtual CoordStruct* GetDestination(CoordStruct* pCrd, TechnoClass* pDocker = nullptr) const R0; // where this is moving, or a building's dock for a techno. iow, a rendez-vous point
-	virtual bool IsOnFloor() const R0;
-	virtual bool IsInAir() const R0;
-	virtual CoordStruct* GetCenterCoords(CoordStruct* pCrd) const R0;
-	virtual void Update() RX;
-
-	//non-virtual
-	static void __fastcall AnnounceExpiredPointer(AbstractClass* pAbstract, bool removed = true)
-		{ JMP_THIS(0x7258D0); }
-
-	static void __fastcall RemoveAllInactive() JMP_STD(0x725C70);
-
-	void AnnounceExpiredPointer(bool removed = true) {
-		AnnounceExpiredPointer(this, removed);
-	}
-
-	CoordStruct GetCoords() const {
-		CoordStruct ret;
-		this->GetCoords(&ret);
-		return ret;
-	}
-
-	CoordStruct GetDestination(TechnoClass* pDocker = nullptr) const {
-		CoordStruct ret;
-		this->GetDestination(&ret, pDocker);
-		return ret;
-	}
-
-	CoordStruct GetCenterCoords() const {
-		CoordStruct ret;
-		this->GetCenterCoords(&ret);
-		return ret;
-	}
-
-	DirStruct* GetTargetDirection(DirStruct* pDir, AbstractClass* pTarget) const
-		{ JMP_THIS(0x5F3DB0); }
-
-	DirStruct GetTargetDirection(AbstractClass* pTarget) const
-	{
-		DirStruct ret;
-		this->GetTargetDirection(&ret, pTarget);
-		return ret;
-	}
-
-	//Operators
-	bool operator < (const AbstractClass &rhs) const {
-		return this->UniqueID < rhs.UniqueID;
-	}
-
-	//Constructor
-	AbstractClass() noexcept
-		: AbstractClass(noinit_t())
-	{ JMP_THIS(0x410170); }
+	AbstractClass& operator=(const AbstractClass& rhs) JMP_THIS(0x588C10);
 
 protected:
-	explicit __forceinline AbstractClass(noinit_t) noexcept
-	{ }
-
-	//===========================================================================
-	//===== Properties ==========================================================
-	//===========================================================================
+	// Constructor
+	AbstractClass() JMP_THIS(0x410170);
+	AbstractClass(noinit_t) JMP_THIS(0x4101C0);
 
 public:
+	/*
+	**	This specifies the unique ID number associated with the object.
+	**	The ID number happens to match the index into
+	**	the object heap appropriate for this object type.
+	*/
+	int ID;
 
-	DWORD UniqueID; // generated by IRTTIInfo::Create_ID through an amazingly simple sequence of return ++ScenarioClass::Instance->UniqueID;
-	AbstractFlags AbstractFlags;	// flags, see AbstractFlags enum in GeneralDefinitions.
+	AbstractFlags AbstractFlags;
+
 	DWORD unknown_18;
-	LONG RefCount;
+	int RefCount;
 	bool Dirty;		// for IPersistStream.
-	PROTECTED_PROPERTY(BYTE, padding_21[0x3]);
 };
 
 template<typename T>
 concept HasAbsVTable = std::is_base_of_v<AbstractClass,T> && requires {
 	{ T::AbsVTable }-> std::convertible_to<uintptr_t>;
 };
+
+static_assert(sizeof(AbstractClass) == 0x24, "sizeof(AbstractClass)");

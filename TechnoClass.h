@@ -16,6 +16,7 @@
 #include <Helpers/Template.h>
 #include <StageClass.h>
 #include <PlanningTokenClass.h>
+#include <StorageClass.h>
 
 //forward declarations
 class AirstrikeClass;
@@ -137,7 +138,7 @@ struct FlashData
 	int DurationRemaining;
 	bool FlashingNow;
 
-	bool Update()
+	bool AI()
 		{ JMP_THIS(0x4CC770); }
 };
 
@@ -156,7 +157,7 @@ struct RecoilData
 	RecoilState State;
 	int TravelFramesLeft;
 
-	void Update()
+	void AI()
 		{ JMP_THIS(0x70ED10); }
 
 	void Fire()
@@ -480,7 +481,7 @@ public:
 	int GetIonCannonValue(AIDifficulty difficulty, int maxHealth) const {
 		// what TS does
 		if(maxHealth > 0 && this->Health > maxHealth) {
-			return (this->WhatAmI() == AbstractType::Building) ? 3 : 1;
+			return (this->KindOf() == AbstractType::Building) ? 3 : 1;
 		}
 
 		return this->GetIonCannonValue(difficulty);
@@ -570,7 +571,7 @@ public:
 	CloakState       CloakState;
 	DECLARE_PROPERTY(StageClass, CloakProgress); // phase from [opaque] -> [fading] -> [transparent] , [General]CloakingStages= long
 	DECLARE_PROPERTY(CDTimerClass, CloakDelayTimer); // delay before cloaking again
-	float            WarpFactor; // don't ask! set to 0 in CTOR, never modified, only used as ((this->Fetch_ID) + this->WarpFactor) % 400 for something in cloak ripple
+	float            WarpFactor; // don't ask! set to 0 in CTOR, never modified, only used as ((this->FetchID) + this->WarpFactor) % 400 for something in cloak ripple
 	bool             unknown_bool_250;
 	CoordStruct      LastSightCoords;
 	int              LastSightRange;
@@ -650,7 +651,7 @@ public:
 	DECLARE_PROPERTY(StorageClass, Tiberium);
 	DWORD            unknown_34C;
 
-	DECLARE_PROPERTY(TransitionTimer, UnloadTimer); // times the deploy, unload, etc. cycles
+	DECLARE_PROPERTY(DoorClass, UnloadTimer); // times the deploy, unload, etc. cycles
 
 	DECLARE_PROPERTY(FacingClass, BarrelFacing);
 	DECLARE_PROPERTY(FacingClass, PrimaryFacing);

@@ -44,7 +44,7 @@ public:
 	virtual ~ObjectClass() RX;
 
 	//AbstractClass
-	virtual bool IsOnFloor() const override { JMP_THIS(0x5F6B60); }
+	virtual bool IsOnGround() const override { JMP_THIS(0x5F6B60); }
 	virtual bool IsInAir() const override { JMP_THIS(0x5F6B90); }
 	// ...and so on
 	// FIXME other virtual function explicit addresses
@@ -63,7 +63,7 @@ public:
   	Building returns if it is 1x1 and has UndeploysInto
   	inf returns 0
   	unit returns !NonVehicle
-  	Aircraft returns IsOnFloor()
+  	Aircraft returns IsOnGround()
 
   users include:
   452656 - is this building click-repairable
@@ -102,7 +102,7 @@ public:
 	virtual CoordStruct* GetFLH(CoordStruct *pDest, int idxWeapon, CoordStruct BaseCoords) const R0;
 	virtual CoordStruct* GetExitCoords(CoordStruct* pCrd, DWORD dwUnk) const R0;
 	virtual int GetYSort() const { JMP_THIS(0x5F6BD0); }
-	virtual bool IsOnBridge(TechnoClass* pDocker = nullptr) const R0; // pDocker is passed to GetDestination
+	virtual bool IsOnBridge(TechnoClass* pDocker = nullptr) const R0; // pDocker is passed to GetTargetCoords
 	virtual bool IsStandingStill() const R0;
 	virtual bool IsDisguised() const R0;
 	virtual bool IsDisguisedAs(HouseClass *target) const R0; // only works correctly on infantry!
@@ -266,6 +266,9 @@ public:
 		return ret;
 	}
 
+	DirStruct GetTargetDirection(AbstractClass* pTarget) const
+	{ JMP_THIS(0x5F3DB0); }
+
 	//Constructor NEVER CALL IT DIRECTLY
 	/*ObjectClass()  noexcept
 		{ JMP_THIS(0x5F3900); }*/
@@ -307,7 +310,7 @@ public:
 	AnimClass*         Parachute;		//Current parachute Anim.
 	bool               OnBridge;
 	bool               IsFallingDown;
-	bool               WasFallingDown; // last falling state when FootClass::Update executed. used to find out whether it changed.
+	bool               WasFallingDown; // last falling state when FootClass::AI executed. used to find out whether it changed.
 	bool               IsABomb; // if set, will explode after FallingDown brings it to contact with the ground
 	bool               IsAlive;		//Self-explanatory.
 	PROTECTED_PROPERTY(BYTE, align_91[0x3]);

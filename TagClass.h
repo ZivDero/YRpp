@@ -40,9 +40,9 @@ public:
 	virtual ~TagClass() RX;
 
 	//AbstractClass
-	virtual void PointerExpired(AbstractClass* pAbstract, bool removed) override RX;
-	virtual AbstractType WhatAmI() const override RT(AbstractType);
-	virtual int Size() const override R0;
+	virtual void Detach(AbstractClass* pAbstract, bool removed) override RX;
+	virtual AbstractType KindOf() const override RT(AbstractType);
+	virtual int SizeOf() const override R0;
 	virtual void ComputeCRC(CRCEngine& crc) const override RX;
 
 	// contains at least one Crosses Horizontal Line event

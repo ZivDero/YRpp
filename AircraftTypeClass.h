@@ -18,8 +18,8 @@ public:
 	virtual ~AircraftTypeClass() RX;
 
 	//AbstractClass
-	virtual AbstractType WhatAmI() const RT(AbstractType);
-	virtual int	Size() const R0;
+	virtual AbstractType KindOf() const RT(AbstractType);
+	virtual int	SizeOf() const R0;
 
 	//ObjectTypeClass
 	virtual bool SpawnAtMapCoords(CellStruct* pMapCoords, HouseClass* pOwner) R0;

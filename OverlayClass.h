@@ -55,8 +55,8 @@ public:
 	virtual ~OverlayClass() RX;
 
 	//AbstractClass
-	virtual AbstractType WhatAmI() const RT(AbstractType);
-	virtual int Size() const R0;
+	virtual AbstractType KindOf() const RT(AbstractType);
+	virtual int SizeOf() const R0;
 
 	// Gets overlay's tiberium type
 	static int __fastcall GetTiberiumType(int overlayTypeIndex)

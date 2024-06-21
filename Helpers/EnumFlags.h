@@ -77,3 +77,58 @@ private:
 		return static_cast<FLAG_ENUM_NAME>(~static_cast<type>(rhs)); \
 	} \
 
+/**
+ *  Defines operator overloads to enable stadard math operations on an enum.
+ *  Useful when an enum represents a range that can be iterated over.
+ *
+ *  Example usage:
+ *   enum MyEnum {
+ *       ENUM_A = 0,
+ *       ENUM_B = 1,
+ *       ENUM_C = 2,
+ *   };
+ *
+ *   DEFINE_ENUMERATION_OPERATORS(MyEnum);
+ */
+#define DEFINE_ENUMERATION_OPERATORS(ENUMTYPE) \
+    extern "C++" { \
+    __forceinline ENUMTYPE operator++(ENUMTYPE const &a) { return (ENUMTYPE)(++((int &)a)); } \
+    __forceinline ENUMTYPE operator--(ENUMTYPE const &a) { return (ENUMTYPE)(--((int &)a)); } \
+    __forceinline constexpr ENUMTYPE operator+(ENUMTYPE const a, ENUMTYPE const b) \
+    { \
+        return (ENUMTYPE)(((int)a) + ((int)b)); \
+    } \
+    __forceinline constexpr ENUMTYPE operator-(ENUMTYPE const a, ENUMTYPE const b) \
+    { \
+        return (ENUMTYPE)(((int)a) - ((int)b)); \
+    } \
+    __forceinline constexpr ENUMTYPE operator*(ENUMTYPE const a, ENUMTYPE const b) \
+    { \
+        return (ENUMTYPE)(((int)a) * ((int)b)); \
+    } \
+    __forceinline constexpr ENUMTYPE operator/(ENUMTYPE const a, ENUMTYPE const b) \
+    { \
+        return (ENUMTYPE)(((int)a) / ((int)b)); \
+    } \
+    __forceinline constexpr ENUMTYPE operator%(ENUMTYPE const a, ENUMTYPE const b) \
+    { \
+        return (ENUMTYPE)(((int)a) % ((int)b)); \
+    } \
+    __forceinline ENUMTYPE &operator+=(ENUMTYPE &a, ENUMTYPE const b) \
+    { \
+        return (ENUMTYPE &)((int &)a = ((int &)a) + ((ENUMTYPE)b)); \
+    } \
+    __forceinline ENUMTYPE &operator-=(ENUMTYPE &a, ENUMTYPE const b) \
+    { \
+        return (ENUMTYPE &)((int &)a = ((int &)a) - ((ENUMTYPE)b)); \
+    } \
+    __forceinline ENUMTYPE operator++(ENUMTYPE const &a, int const b) { return (ENUMTYPE)(++((int &)a)); } \
+    __forceinline ENUMTYPE operator--(ENUMTYPE const &a, int const b) { return (ENUMTYPE)(--((int &)a)); } \
+    __forceinline constexpr ENUMTYPE operator+(ENUMTYPE const a, int const b) { return (ENUMTYPE)(((int)a) + ((int)b)); } \
+    __forceinline constexpr ENUMTYPE operator-(ENUMTYPE const a, int const b) { return (ENUMTYPE)(((int)a) - ((int)b)); } \
+    __forceinline constexpr ENUMTYPE operator*(ENUMTYPE const a, int const b) { return (ENUMTYPE)(((int)a) * ((int)b)); } \
+    __forceinline constexpr ENUMTYPE operator/(ENUMTYPE const a, int const b) { return (ENUMTYPE)(((int)a) / ((int)b)); } \
+    __forceinline constexpr ENUMTYPE operator%(ENUMTYPE const a, int const b) { return (ENUMTYPE)(((int)a) % ((int)b)); } \
+    __forceinline ENUMTYPE &operator+=(ENUMTYPE &a, int const b) { return (ENUMTYPE &)((int &)a = ((int &)a) + ((int)b)); } \
+    __forceinline ENUMTYPE &operator-=(ENUMTYPE &a, int const b) { return (ENUMTYPE &)((int &)a = ((int &)a) - ((int)b)); } \
+    }
