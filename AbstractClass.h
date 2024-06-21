@@ -21,6 +21,9 @@ public:
 	static constexpr constant_ptr<DynamicVectorClass<AbstractClass*>, 0xB0F720u> const Array{};
 	static constexpr reference<IndexClass<int, int>, 0xB0E840u> const TargetIndex{};
 
+	// Constructor
+	AbstractClass() noexcept : AbstractClass(noinit_t()) JMP_THIS(0x410170);
+
 	/*
 	**	IUnknown
 	*/
@@ -94,12 +97,10 @@ public:
 	}
 
 protected:
-	// Constructor
-	AbstractClass() JMP_THIS(0x410170);
-	AbstractClass(const noinit_t& noinit) JMP_THIS(0x4101C0);
+	AbstractClass(const noinit_t& noinit) {};
 
 private:
-	AbstractClass(const AbstractClass &);
+	AbstractClass(const AbstractClass&) = delete;
 	AbstractClass& operator=(const AbstractClass& that) JMP_THIS(0x588C10);
 
 public:
